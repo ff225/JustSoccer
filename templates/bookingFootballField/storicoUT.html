@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bookingFootballField/css/table.css' %}">
+{% endblock %}
+{% block head %}
+    <title>Storico</title>
+{% endblock %}
+{% block body %}
+    <div class="card border-primary mb-3" style="max-width: available; max-height: border-box">
+        <div class="card-header">Storico prenotazioni</div>
+        <div class="card-body">
+            {% if pendingreservation_list.count != 0 %}
+                <table>
+                    <tr>
+                        <th>Nome Campo</th>
+                        <th>Data</th>
+                        <th>Ora</th>
+                        <th>Indirizzo</th>
+                        <th>Confermato</th>
+                    </tr>
+
+                    {% for res in pendingreservation_list %}
+                        <tr>
+                            <td><a href="{% url 'about_pitch' res.campo.id %}"> {{ res.campo.nomeCampo }}</a></td>
+                            <td>{{ res.data }}</td>
+                            <td>{{ res.ora }}</td>
+                            <td>Via {{ res.campo.via }} {{ res.campo.civico }}, {{ res.campo.citta }}</td>
+                            {% if res.accettato %}
+                                <td>Si</td>
+                            {% else %}
+                                <td>No</td>
+                            {% endif %}
+                        </tr>
+                        </tr>
+                    {% endfor %}
+
+                </table>
+            {% else %}
+                <p>Non è stata accettata nessuna prenotazione, controlla le <a href="{% url 'reservation_attesa' %}">prenotazioni
+                    in attesa di conferma</a></p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

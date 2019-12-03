@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bookingFootballField/css/table.css' %}">
+{% endblock %}
+{% block head %}
+    <title>Prenotazioni in attesa di conferma </title>
+{% endblock %}
+{% block body %}
+    <div class="card border-primary mb-3" style="max-width: available; max-height: border-box">
+        <div class="card-header">Prenotazioni in attesa di conferma</div>
+        <div class="card-body">
+            {% if pendingreservation_list.count != 0 %}
+                <form method="post">
+                    {% csrf_token %}
+                    <table>
+                        <tr>
+                            <th>Seleziona</th>
+                            <th>Nome Campo</th>
+                            <th>Data</th>
+                            <th>Ora</th>
+                            <th>Indirizzo</th>
+                            <th>Confermato</th>
+
+                        </tr>
+                        {% for res in pendingreservation_list %}
+                            <tr>
+                                <td><input type="radio" name="prenotazione" id="campo{{ res.pk }}"
+                                           value="{{ res.pk }}" checked=""</td>
+                                <td><a href="{% url 'about_pitch' res.campo.id %}"> {{ res.campo.nomeCampo }}</a></td>
+                                <td>{{ res.data }}</td>
+                                <td>{{ res.ora }}</td>
+                                <td>Via {{ res.campo.via }} {{ res.campo.civico }}, {{ res.campo.citta }}</td>
+                                <td>No</td>
+                            </tr>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Gestisci prenotazione</button>
+                    </a>
+                </form>
+            {% else %}
+                <p>Nessuna prenotazione in attesa... <a href="{% url 'search' %}">prenota subito!</a></p>
+            {% endif %}
+        </div>
+{% endblock %}

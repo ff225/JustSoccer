@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block head %}
+    <title>Aggiungi campo</title>
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <br>
+        {% if messages %}
+            <div class="alert alert-info" role="alert">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <br>
+        {% if form.non_field_errors %}
+            <div class="alert alert-dismissible alert-warning" style="height: 50%">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h4 class="alert-heading">Attenzione!</h4>
+                <p class="mb-0">{{ form.non_field_errors }}</p>
+            </div>
+
+
+        {% endif %}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row">
+
+                <div class="form-group col-md-4">
+                    {{ form.email | as_crispy_field }}
+                </div>
+                <div class="form-group col-md-4">
+                    {{ form.telefono | as_crispy_field }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    {{ form.nomeCampo | as_crispy_field }}
+                </div>
+
+                <div class="form-group col-md-3">
+                    {{ form.via | as_crispy_field }}
+                </div>
+                <div class="form-group col-md-1">
+                    {{ form.civico | as_crispy_field }}
+                </div>
+                <div class="form-group col-md-2">
+                    {{ form.citta | as_crispy_field }}
+                </div>
+                <div class="form-group col-md-1">
+                    {{ form.cap | as_crispy_field }}
+                </div>
+                <div class="form-group col-md-2">
+                    {{ form.prezzo_campo | as_crispy_field }}
+                </div>
+
+                <div class="form-group col-md-2">
+                    {{ form.orario_apertura | as_crispy_field }}
+                </div>
+                <div class="form-group col-md-2">
+                    {{ form.orario_chiusura | as_crispy_field }}
+                </div>
+                <div class="form-group col-md-2">
+                    {{ form.chiuso | as_crispy_field }}
+                </div>
+                <div class="form-row">
+
+                    <div class="form-group col-md-6">
+                        {{ form.giorni_apertura | as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        {{ form.tipo_campo | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="form-group col-md-1">
+                    {{ form.image | as_crispy_field }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Conferma</button>
+            <a href="{% url 'listFF' %}">
+                <button type="button" class="btn btn-danger">Annulla</button>
+            </a>
+        </form>
+    </div>
+{% endblock body %}

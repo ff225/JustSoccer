@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block head %}
+    <title>Modifica</title>
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <br>
+        <p class="text-danger">{{ message_error }}</p>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-6" disabled="">
+                    {{ form.email |as_crispy_field }}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form.first_name | as_crispy_field }}
+                </div>
+            </div>
+            <div class="form-row">
+
+                <div class="form-group col-md-6">
+                    {{ form.last_name |as_crispy_field }}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form.ddn | as_crispy_field }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form.citta |as_crispy_field }}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form.telefono |as_crispy_field }}
+                </div>
+            </div>
+            {% if form.p_iva.id_for_label == 'id_p_iva' %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        {{ form.p_iva |as_crispy_field }}
+                    </div>
+
+                </div>
+            {% endif %}
+            <button type="submit" class="btn btn-success">Salva</button>
+            <a href="{% url 'profile' %}">
+        </form>
+
+        <button type="button" class="btn btn-secondary">Annulla</button>
+        </a>
+    </div>
+{% endblock %}

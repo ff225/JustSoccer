@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block extra_link %}
+    <link rel="stylesheet" media="screen" href="{% static 'bookingFootballField/css/stripe.css' %}">
+{% endblock %}
+{% block head %}
+    <title>{{ campo }}</title>
+{% endblock %}
+{% block body %}
+    <div class="content py-5  bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <span class="anchor" id="formUserEdit"></span>
+                    <!-- form user info -->
+                    <div class="card card-outline-secondary">
+                        <div class="card-header">
+                            <h3 class="mb-1">Checkout</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">Username</span>
+                                </div>
+                                <input disabled style="text-align: center" value="{{ utente }}" type="text"
+                                       class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">Campo</span>
+                                </div>
+                                <input disabled style="text-align: center" value="{{ campo }}" type="text"
+                                       class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">Prezzo</span>
+                                </div>
+                                <input disabled style="text-align: center" value="{{ prezzo }}" type="text"
+                                       class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">Data</span>
+                                </div>
+                                <input disabled style="text-align: center" value="{{ data }}, {{ ora }}" type="text"
+                                       class="form-control" aria-label="Sizing example input"
+                                       aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                            <script src="https://js.stripe.com/v3/"></script>
+                            <form method="post" id="stripe-form">
+                                {% csrf_token %}
+                                <div class="stripe-form-row">
+                                    <label for="card-element" id="stripeBtnlabel">
+                                        Carta di credito o di debito
+                                    </label>
+                                    <div id="card-element" class="StripeElement StripeElement--empty">
+                                    </div>
+
+                                    <!-- Used to display form errors. -->
+                                    <div id="card-errors" role="alert"></div>
+                                </div>
+
+                                <button id="stripeBtn">Prenota</button>
+                            </form>
+                            <a href="{% url 'delete_r' pk %}">
+                                <button type="button" class="btn btn-danger">Elimina prenotazione</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script nonce="" src="{% static 'bookingFootballField/javascript/stripe.js' %}">
+    </script>
+{% endblock %}

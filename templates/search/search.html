@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block head %}
+    <title>Chi cerca trova...</title>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <br>
+                {% if messages %}
+                    <div class="alert alert-info" role="alert">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <p class="text-danger">{{ message_error }}</p>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <div class="col-lg-9">
+                            {{ form.citta | as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-5">
+                            {{ form.giorni_apertura | as_crispy_field }}
+                        </div>
+                        <div class="col-lg-4">
+                            {{ form.orario_apertura | as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-5">
+                            {{ form.prezzo_campo | as_crispy_field }}
+                        </div>
+                        <div class="col-lg-4">
+
+                            {{ form.tipo_campo | as_crispy_field }}
+                            {% if form.errors %}
+                                <p class="text-danger">Selezionare solo un tipo di campo.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Cerca</button>
+                    <a href="{% url 'search' %}"></a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}

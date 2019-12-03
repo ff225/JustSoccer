@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block head %}
+    <title>Accedi</title>
+{% endblock %}
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card card-signin my-5">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Accedi</h5>
+                        {% if form.errors %}
+                            <p class="text-danger">Inserisci nome utente e password corretti. In entrambi i campi le
+                                maiuscole potrebbero
+                                essere significative.</p>
+                        {% endif %}
+                    </div>
+                    <form class="form-signin" method="post">
+                        {% csrf_token %}
+                        <div class="form-label-group " style="margin: 10px">
+                            {{ form.username | as_crispy_field }}
+                        </div>
+                        <div class="form-label-group " style="margin: 10px">
+                            {{ form.password | as_crispy_field }}
+                        </div>
+                        <div class="form-label-group " style="margin: 10px">
+                            <button class="btn-lg btn-outline-primary btn-block my-4 waves-effect z-depth-0"
+                                    type="submit">Accedi
+                            </button>
+                        </div>
+                    </form>
+                    <a class="text-secondary" style="margin: 10px" href="{% url 'password_reset' %}">Password
+                        dimenticata?</a>
+                    <hr class="my-4">
+                    <div style="margin: 10px">
+                        <form action="{% url 'newUser' %}">
+                            <button class="btn-lg btn-outline-success btn-block my-4 waves-effect z-depth-0" type="submit"> Crea
+                                un nuovo account utente
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

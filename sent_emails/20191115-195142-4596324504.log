@@ -1,0 +1,18 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Prenotazione campo: Galilei data: 15/11/19, 22:00
+From: prp@jp.com
+To: utente@kp.com
+Date: Fri, 15 Nov 2019 18:51:42 -0000
+Message-ID: 
+ <157384390256.78759.2603127728046667876@wifi-125_dhcprange-183.wifi.unimo.it>
+
+Caro utente,
+Ti informiamo che il pagamento non è andato a buon fine.
+Informazioni sulla prenotazione:
+Campo: Galilei
+Data: 2019-11-15
+Ora: 22:00:00
+Puoi riprovare seguendo il seguente link: http://127.0.0.1:8000/booking/checkout/confirm/2
+-------------------------------------------------------------------------------

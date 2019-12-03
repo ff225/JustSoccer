@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bookingFootballField/css/map.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css"/>
+{% endblock %}
+{% block head %}
+    <title> Checkout </title>
+{% endblock %}
+{% block body %}
+    <div class="content py-5  bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <span class="anchor" id="formUserEdit"></span>
+                    <!-- form user info -->
+                    <div class="card card-outline-secondary">
+                        <div class="card-header">
+                            <h3 class="mb-0">Checkout</h3>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" class="form">
+                                {% csrf_token %}
+                                {{ form | crispy }}
+                                <button type="submit" class="btn btn-primary" onclick="enableField()">Conferma e paga
+                                </button>
+                                <a href="{% url 'home' %}">
+                            </form>
+                            <button type="button" class="btn btn-danger">Annulla</button>
+                            </a>
+                            <button type="button" class="btn btn-link" onclick="showPosition();">Calcola percorso
+                            </button>
+                            <div style="width: 685px; height: 400px" id="map"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-core.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-service.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+    <script src= {% static 'bookingFootballField/javascript/disableField.js' %}></script>
+    <script>
+        var lng = {{lng}};
+        var lat ={{ lat }};
+    </script>
+    <script src= {% static 'bookingFootballField/javascript/calculateRoute.js' %}></script>
+{% endblock %}

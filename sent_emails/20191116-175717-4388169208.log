@@ -1,0 +1,18 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Prenotazione campo: Bocciofila data: 16/11/19, 18:00
+From: prp1@jp.com
+To: utente@kp.com
+Date: Sat, 16 Nov 2019 16:57:17 -0000
+Message-ID: 
+ <157392343791.84361.17144078921412951216@MacBook-Air-di-Francesco.local>
+
+Caro utente,
+Ti informiamo che il pagamento non è andato a buon fine.
+Informazioni sulla prenotazione:
+Campo: Bocciofila
+Data: 2019-11-16
+Ora: 18:00:00
+Puoi riprovare seguendo il seguente link: http://127.0.0.1:8000/booking/checkout/confirm/7
+-------------------------------------------------------------------------------

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Elimina campo</title>
+{% endblock %}
+{% block body %}
+    <div class="card-body">
+        <form method="post">{% csrf_token %}
+            <p>Sicuro di voler eliminare: "{{ object }}"?</p>
+            <input type="submit" class="btn btn-danger" value="Conferma">
+        </form>
+    </div>
+{% endblock %}

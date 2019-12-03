@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bookingFootballField/css/table.css' %}">
+{% endblock %}
+{% block head %}
+    <title>Prenotazioni in attesa</title>
+{% endblock %}
+
+{% block body %}
+    <div class="card border-primary mb-3" style="max-width: available; max-height: border-box">
+        <div class="card-header">Prenotazioni in attesa</div>
+        <div class="card-body">
+
+            {% if pendingreservation_list.count != 0 %}
+                <form method="post">
+                    {% csrf_token %}
+                    <table>
+                        <tr>
+                            <th>Seleziona</th>
+                            <th>Cliente</th>
+                            <th>Telefono</th>
+                            <th>Data</th>
+                            <th>Ora</th>
+                            <th>Indirizzo</th>
+                            <th>Conferma prenotazione</th>
+
+                        </tr>
+
+                        {% for res in pendingreservation_list %}
+                            <tr>
+                                <td><input type="radio" name="prenotazione" id="prentazione{{ res.pk }}"
+                                           value="{{ res.pk }}" checked=""</td>
+                                <td>{{ res.cliente.first_name }} {{ res.cliente.last_name }}</td>
+                                <td>{{ res.cliente.telefono }}</td>
+                                <td>{{ res.data }}</td>
+                                <td>{{ res.ora }}</td>
+                                <td>{{ res.campo.nomeCampo }}:
+                                    Via {{ res.campo.via }} {{ res.campo.civico }}, {{ res.campo.citta }}</td>
+                                <td>{{ form.accettato }}</td>
+                            </tr>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Seleziona richiesta</button>
+                </form>
+            {% else %}
+                <p>Nessuna prenotazioni in attesa </p>
+            {% endif %}
+        </div>
+{% endblock %}

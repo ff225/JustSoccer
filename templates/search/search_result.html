@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bookingFootballField/css/table.css' %}">
+{% endblock %}
+{% block head %}
+    <title>campi disponibili! :) </title>
+{% endblock %}
+{% block body %}
+
+    <div class="card border-primary mb-3" style="max-width: available; max-height: border-box">
+        <div class="card-header">Seleziona il campo che vuoi prenotare</div>
+        {% if campidacalcio_list.count != 0 %}
+            <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <table class="table table-hover mb-0">
+                    <tr>
+                        <th>Seleziona</th>
+                        <th>Nome Campo</th>
+                        <th>Orario apertura</th>
+                        <th>Orario chiusura</th>
+                        <th>Indirizzo</th>
+                        <th>Prezzo/Ora</th>
+                    </tr>
+                    {% for campidacalcio in campidacalcio_list %}
+                        <tr>
+                            <td><input type="radio" name="campo"
+                                       id="campo{{ campidacalcio.pk }}"
+                                       value="{{ campidacalcio.pk }}" checked=""></td>
+                            <td><a href="{% url 'about_pitch' campidacalcio.pk %}" style="color: blue"> {{ campidacalcio.nomeCampo }}</a>
+                            </td>
+                            <td>{{ campidacalcio.orario_apertura }}</td>
+                            <td>{{ campidacalcio.orario_chiusura }}</td>
+                            <td>Via {{ campidacalcio.via }} {{ campidacalcio.civico }}, {{ campidacalcio.citta }}</td>
+                            <td>{{ campidacalcio.prezzo_campo }}€</td>
+
+
+                        </tr>
+
+                    {% endfor %}
+                </table>
+                <br>
+                <button type="submit" class="btn btn-primary">Seleziona</button>
+                <a href="{% url 'search' %}">
+                    <input type="button" class="btn btn-default"
+                           value="Cerca di nuovo">
+                </a>
+            </form>
+        {% else %}
+            <br>
+            <p style="margin-left: 10px">Campi non disponibili, prova con la <a href="{% url 'search' %}">ricerca
+                avanzata</a></p>
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}

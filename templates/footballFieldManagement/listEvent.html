@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bookingFootballField/css/table.css' %}">
+{% endblock %}
+{% block head %}
+    <title>Eventi</title>
+{% endblock %}
+{% block body %}
+    <div class="card border-primary mb-3" style="max-width: available; max-height: border-box">
+        <div class="card-header">Seleziona evento</div>
+        <div class="card-body">
+            {% if eventi_list.count != 0 %}
+                <form method="post">
+                    {% csrf_token %}
+                    <table>
+                        <tr>
+                            <th>Organizzatore</th>
+                            <th>Titolo</th>
+                            <th>Scadenza iscrizioni</th>
+                            <th>Inizio evento</th>
+                            <th>Fine evento</th>
+                            <th>Indirizzo</th>
+                            <th>Seleziona</th>
+                        </tr>
+                        {% for evento in eventi_list %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'about_pitch' evento.organizzatore.pk %}">{{ evento.organizzatore.nomeCampo }}</a>
+                                </td>
+                                <td>{{ evento.titolo }}</td>
+                                <td>{{ evento.scadenza_iscrizione }}</td>
+                                <td>{{ evento.inizio_evento }}</td>
+                                <td>{{ evento.fine_evento }}</td>
+                                <td>
+                                    Via {{ evento.organizzatore.via }} {{ evento.organizzatore.civico }}, {{ evento.organizzatore.citta }} </td>
+
+                                <td><input type="radio" name="evento" id="campo{{ evento.pk }}"
+                                           value="{{ evento.pk }}" checked=""</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <br>
+                    {% if perms.footballFieldManagement %}
+                        <button type="submit" class="btn btn-primary">Seleziona</button>
+                    {% else %}
+
+                        <button type="submit" class="btn btn-primary">Invia informazioni per email</button>
+                    {% endif %}
+                </form>
+            {% else %}
+                {% if perms.footballFieldManagement %}
+                    <p>Non ci sono eventi, <a href="{% url 'newEvent' %}">creane uno!</a></p>
+                {% else %}
+                    <p>Nessun evento disponibile nella tua città</p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
